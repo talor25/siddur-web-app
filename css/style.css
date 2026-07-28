@@ -1,0 +1,703 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap');
+
+:root {
+    --font-ui: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-prayer: 'Frank Ruhl Libre', 'Georgia', 'Times New Roman', serif;
+
+    /* Light Theme - Premium Warm Parchment */
+    --bg-gradient-start: #fdfbf7;
+    --bg-gradient-end: #f7f4eb;
+    --text-color: #2c2520;
+    --text-muted: #6b6259;
+    --header-bg: rgba(253, 251, 247, 0.85);
+    --header-border: rgba(220, 210, 190, 0.5);
+    --header-text: #1b1612;
+    --card-bg: #ffffff;
+    --card-border: rgba(220, 210, 190, 0.4);
+    --card-shadow: 0 4px 20px rgba(44, 37, 32, 0.04), 0 2px 8px rgba(44, 37, 32, 0.02);
+    --card-hover-border: #a67c52;
+    --card-hover-shadow: 0 6px 24px rgba(166, 124, 82, 0.12);
+    --primary-color: #1b3a57;
+    --primary-hover: #10263b;
+    --primary-light: rgba(27, 58, 87, 0.08);
+    --accent-color: #b45309;
+    --accent-light: rgba(180, 83, 9, 0.06);
+    --accent-border: rgba(180, 83, 9, 0.2);
+    --instruction-color: #6e645c;
+    --instruction-bg: #f3ede2;
+    --instruction-border: rgba(110, 100, 92, 0.15);
+    
+    --scrollbar-thumb: #c8bdab;
+    --scrollbar-track: #f5f0e1;
+    
+    color-scheme: light dark;
+}
+
+body.dark-mode {
+    /* Dark Theme - Obsidian & Deep Indigo Night */
+    --bg-gradient-start: #0a0b10;
+    --bg-gradient-end: #121422;
+    --text-color: #e2e5f0;
+    --text-muted: #9ba1b8;
+    --header-bg: rgba(10, 11, 16, 0.85);
+    --header-border: rgba(140, 180, 249, 0.15);
+    --header-text: #f0f2fa;
+    --card-bg: #161828;
+    --card-border: rgba(140, 180, 249, 0.08);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --card-hover-border: #8cb4f9;
+    --card-hover-shadow: 0 6px 24px rgba(140, 180, 249, 0.18);
+    --primary-color: #8cb4f9;
+    --primary-hover: #a5c5ff;
+    --primary-light: rgba(140, 180, 249, 0.12);
+    --accent-color: #e9af43;
+    --accent-light: rgba(233, 175, 67, 0.1);
+    --accent-border: rgba(233, 175, 67, 0.25);
+    --instruction-color: #a4abbd;
+    --instruction-bg: #202336;
+    --instruction-border: rgba(164, 171, 189, 0.15);
+
+    --scrollbar-thumb: #2d3250;
+    --scrollbar-track: #0e1017;
+    
+    color-scheme: dark;
+}
+
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-ui);
+    background: radial-gradient(circle at top, var(--bg-gradient-start), var(--bg-gradient-end));
+    background-attachment: fixed;
+    color: var(--text-color);
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    line-height: 1.6;
+}
+
+/* Custom Scrollbar Styles using Standard properties */
+body, .container, #prayer-content {
+    --scrollbar-thumb-color: var(--scrollbar-thumb);
+    --scrollbar-track-color: var(--scrollbar-track);
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+    scrollbar-width: thin;
+}
+
+/* Legacy fallback for WebKit/Blink browsers */
+@supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+        border-radius: 5px;
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+    }
+}
+
+/* Glassmorphism Header */
+header {
+    background-color: var(--header-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--header-border);
+    color: var(--header-text);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.header-settings {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-title-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#header-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--primary-color);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.sub-title {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Header Controls & Settings Toggles */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-group {
+    display: flex;
+    background: var(--primary-light);
+    padding: 3px;
+    border-radius: 999px;
+    border: 1px solid var(--header-border);
+}
+
+.toggle-btn {
+    font-family: var(--font-ui);
+    cursor: pointer;
+    border: none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-btn.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.icon-btn {
+    cursor: pointer;
+    border: 1px solid var(--header-border);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.25s ease;
+    box-shadow: var(--card-shadow);
+}
+
+.icon-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.icon-btn:active {
+    transform: translateY(1px);
+}
+
+.font-size-controls {
+    display: flex;
+    gap: 4px;
+}
+
+/* Navigation Dropdown Container & Menu */
+.nav-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background-color: var(--header-bg);
+    border: 1px solid var(--header-border);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    width: 200px;
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 1001;
+    padding: 6px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform-origin: top left;
+    animation: dropdownFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 10px 16px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    text-align: right;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin: 2px 6px;
+}
+
+.nav-dropdown-menu a:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.nav-dropdown-menu a:active {
+    transform: scale(0.98);
+}
+
+/* Custom Scrollbar Styles using Standard properties */
+body, .container, #prayer-content, .nav-dropdown-menu {
+    --scrollbar-thumb-color: var(--scrollbar-thumb);
+    --scrollbar-track-color: var(--scrollbar-track);
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+    scrollbar-width: thin;
+}
+
+.settings-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settings-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+/* Container */
+.container {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 24px 16px 80px 16px;
+}
+
+/* Categories & Navigation Menu */
+.category-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin: 32px 0 16px 0;
+    padding-right: 8px;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-border);
+}
+
+.prayer-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 20px 24px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    margin-bottom: 14px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.prayer-card .prayer-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.prayer-card .prayer-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.prayer-card .prayer-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.prayer-card .arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.prayer-card:hover {
+    border-color: var(--card-hover-border);
+    transform: translateY(-3px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.prayer-card:hover .arrow {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(-4px);
+}
+
+/* Prayer Reading Screen */
+#prayer-content {
+    display: none;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+
+.prayer-view-wrapper {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 40px 32px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.prayer-text {
+    font-family: var(--font-prayer);
+    color: var(--text-color);
+    text-align: center;
+    line-height: 2.1; /* Extra spacing for Nikkud legibility */
+    font-size: 22px; /* Controlled via JS */
+    transition: font-size 0.2s ease;
+    direction: rtl;
+    white-space: pre-line; /* Preserves line breaks from the database template strings */
+}
+
+/* Inner Text Formatting styles */
+.bold {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+    margin: 35px auto 20px auto;
+    font-size: 1.35em;
+    position: relative;
+    width: fit-content;
+    padding-bottom: 6px;
+}
+
+.bold::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: radial-gradient(circle, var(--accent-color), transparent);
+}
+
+/* Scroll Offset target IDs */
+[id^="shacharit-"], 
+[id^="mincha-"], 
+[id^="arvit-"], 
+[id^="hamazon-"],
+#amida-section {
+    scroll-margin-top: 80px;
+}
+
+@media (max-width: 768px) {
+    [id^="shacharit-"], 
+    [id^="mincha-"], 
+    [id^="arvit-"], 
+    [id^="hamazon-"],
+    #amida-section {
+        scroll-margin-top: 125px;
+    }
+}
+
+/* Instruction block (הוראות הלכתיות) */
+.instruction {
+    font-family: var(--font-ui);
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--instruction-color);
+    background-color: var(--instruction-bg);
+    border: 1px dashed var(--instruction-border);
+    display: block;
+    padding: 10px 16px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 90%;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Highlight boxes for special verses/blessings */
+.highlight {
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1.15em;
+    display: block;
+    margin: 15px 0;
+}
+
+/* Box for seasonal insertions (like Mashiv HaRuach, Zochrenu) */
+.highlight-box {
+    display: block;
+    background-color: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    padding: 14px 20px;
+    margin: 18px auto;
+    border-radius: 12px;
+    max-width: 90%;
+    line-height: 1.8;
+}
+
+/* Seasonal dynamics classes - hidden by default */
+.seasonal-text.summer-only,
+.seasonal-text.winter-only,
+.seasonal-text.repentance-only {
+    display: none;
+}
+
+/* Seasonal displays based on body tags */
+body.season-summer .seasonal-text.summer-only {
+    display: inline-block;
+}
+
+body.season-winter .seasonal-text.winter-only {
+    display: inline-block;
+}
+
+body.repentance-on .seasonal-text.repentance-only {
+    display: inline-block;
+}
+
+body.repentance-on .seasonal-text.repentance-off {
+    display: none;
+}
+
+body.repentance-off .seasonal-text.repentance-off {
+    display: inline-block;
+}
+
+body.repentance-off .seasonal-text.repentance-only {
+    display: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        padding: 10px 16px;
+    }
+    .header-title-container {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .controls {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+    .header-settings {
+        grid-column: 1 / span 2;
+        grid-row: 2;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        border-top: 1px dashed var(--header-border);
+        padding-top: 10px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 16px 12px 60px 12px;
+    }
+    
+    #header-title {
+        font-size: 1.25rem;
+    }
+    
+    .prayer-view-wrapper {
+        padding: 24px 16px;
+        border-radius: 16px;
+    }
+    
+    .prayer-card {
+        padding: 16px 18px;
+    }
+    
+    .prayer-card .prayer-title {
+        font-size: 1.1rem;
+    }
+    
+    .bold {
+        margin: 25px auto 15px auto;
+        font-size: 1.2em;
+    }
+}
+
+/* Day Selector (שיר של יום) Styles */
+.day-selector-container {
+    margin: 40px auto 20px auto;
+    padding: 24px;
+    border-radius: 20px;
+    background: var(--instruction-bg);
+    border: 1px solid var(--instruction-border);
+    max-width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--card-shadow);
+}
+
+.day-selector-container .instruction {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.day-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    direction: rtl;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px;
+    border-radius: 12px;
+}
+
+body.dark-mode .day-tabs {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.day-tab-btn {
+    font-family: var(--font-ui);
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.day-tab-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: var(--text-color);
+}
+
+body.dark-mode .day-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.day-tab-btn.active {
+    background: var(--primary-color);
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.day-content-wrapper {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.day-content-item {
+    display: none;
+    text-align: center;
+    font-family: var(--font-prayer);
+    color: var(--text-color);
+    line-height: 2.1;
+    font-size: 1.05em;
+    animation: dayContentFadeIn 0.3s ease-out forwards;
+}
+
+.day-content-item.active {
+    display: block;
+}
+
+.day-content-item .highlight {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 1.15em;
+    margin-bottom: 12px;
+}
+
+@keyframes dayContentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
